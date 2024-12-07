@@ -1,16 +1,14 @@
 <?php
 session_start();
 
-// TODO: Remove default admin credentials before production!
-// Admin credentials for testing:
-// username: admin
-// password: @utumn2019#
+$username_env = getenv('ADMIN_USERNAME');
+$password_env = getenv('ADMIN_PASSWORD');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    if ($username === 'admin' && $password === '@utumn2019#') {
+    if ($username === $username_env && $password === $password_env) {
         $_SESSION['logged_in'] = true;
         header('Location: /admin/panel.php');
         exit;
